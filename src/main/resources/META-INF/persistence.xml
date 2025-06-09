@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             version="2.2"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+                                 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+    <persistence-unit name="hibernate-oracle">
+        <class>pl.uczelnia.model.Game</class>
+        <class>pl.uczelnia.model.Customer</class>
+        <class>pl.uczelnia.model.Rental</class>
+
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@dbmanage.lab.ii.agh.edu.pl:1521:DBMANAGE"/>
+            <property name="javax.persistence.jdbc.user" value="BD_423125"/>
+            <property name="javax.persistence.jdbc.password" value="st5873"/>
+
+            <!-- Hibernate config -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
