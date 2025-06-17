@@ -4,12 +4,16 @@ import pl.uczelnia.model.Customer;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
+import java.util.List;
 
 public class CustomerService {
     private EntityManager em;
 
     public CustomerService(EntityManager em) {
         this.em = em;
+    }
+    public List<Customer> findAllCustomers() {
+        return em.createQuery("SELECT c FROM Customer c", Customer.class).getResultList();
     }
 
     public void addCustomer(Customer customer) {

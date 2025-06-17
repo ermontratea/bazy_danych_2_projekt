@@ -3,12 +3,16 @@ import javax.persistence.*;
 import pl.uczelnia.model.Game;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class GameService {
     private EntityManager em;
 
     public GameService(EntityManager em) {
         this.em = em;
+    }
+    public List<Game> findAllGames() {
+        return em.createQuery("SELECT g FROM Game g", Game.class).getResultList();
     }
 
     public void addGame(Game game) {

@@ -26,6 +26,7 @@ public class Game {
     private String gameType;
 
     private int availableCopies;
+    private int totalCopies;
 
     private BigDecimal basePrice;
     // === Konstruktor bezargumentowy (wymagany przez Hibernate) ===
@@ -48,6 +49,7 @@ public class Game {
         this.gameType = gameType;
         this.availableCopies = availableCopies;
         this.basePrice = basePrice;
+        this.totalCopies = availableCopies;
     }
     
 
@@ -126,5 +128,13 @@ public class Game {
     }
     public void setBasePrice(BigDecimal basePrice) {
         this.basePrice = basePrice;
+    }
+
+    public int getTotalCopies() {
+        return totalCopies;
+    }
+
+    public void setTotalCopies(int totalCopies) {
+        this.totalCopies = totalCopies;
     }
 }

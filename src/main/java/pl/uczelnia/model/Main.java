@@ -49,7 +49,7 @@ public class Main {
                 null,
                 new BigDecimal("20")
         );
-        rentalService.addRental(rental);
+        //rentalService.addRental(rental);
 
 //        // READ
 //        Game fetchedGame = gameService.findGame(game.getId());
