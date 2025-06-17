@@ -1,8 +1,8 @@
-package pl.uczelnia.model.presenter;
+package pl.uczelnia.presenter;
 
 import pl.uczelnia.model.Customer;
 import pl.uczelnia.model.managers.CustomerService;
-import pl.uczelnia.model.view.CustomerView;
+import pl.uczelnia.view.CustomerView;
 
 import java.util.List;
 

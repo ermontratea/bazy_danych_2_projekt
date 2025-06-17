@@ -6,16 +6,22 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import pl.uczelnia.model.Customer;
 import pl.uczelnia.model.managers.CustomerService;
-import pl.uczelnia.model.presenter.CustomerPresenter;
-import pl.uczelnia.model.view.*;
-import pl.uczelnia.model.presenter.*;
+import pl.uczelnia.model.managers.GameService;
+import pl.uczelnia.model.managers.RentalService;
+import pl.uczelnia.model.managers.ReservationService;
+import pl.uczelnia.presenter.CustomerPresenter;
+import pl.uczelnia.presenter.GamesPresenter;
+import pl.uczelnia.presenter.RentalsPresenter;
+import pl.uczelnia.presenter.ReservationsPresenter;
+import pl.uczelnia.view.CustomerView;
+import pl.uczelnia.view.GamesView;
+import pl.uczelnia.view.RentalsView;
+import pl.uczelnia.view.ReservationsView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.List;
 
 
 public class MainApp extends Application {
@@ -28,6 +34,10 @@ public class MainApp extends Application {
     private VBox reservationsPane;
     private EntityManager em;
     private CustomerService customerService;
+    private GameService gameService;
+    private ReservationService reservationService;
+    private RentalService rentalsService;
+
 
     private Button backButton;
 
@@ -36,6 +46,11 @@ public class MainApp extends Application {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hibernate-oracle");
         EntityManager em = emf.createEntityManager();
         customerService = new CustomerService(em);
+        gameService = new GameService(em);
+        reservationService = new ReservationService(em);
+        rentalsService = new RentalService(em);
+
+
 
         root = new BorderPane();
 
@@ -90,21 +105,21 @@ public class MainApp extends Application {
 
     private void showRentalsPane() {
         RentalsView view = new RentalsView();
-        new RentalsPresenter(view); // tutaj można podać też service'y
+        new RentalsPresenter(view, rentalsService); // tutaj można podać też service'y
         root.setCenter(view);
         backButton.setVisible(true);
     }
 
     private void showGamesPane() {
         GamesView view = new GamesView();
-        new GamesPresenter(view);
+        new GamesPresenter(view, gameService);
         root.setCenter(view);
         backButton.setVisible(true);
     }
 
     private void showReservationsPane() {
         ReservationsView view = new ReservationsView();
-        new ReservationsPresenter(view);
+        new ReservationsPresenter(view, reservationService);
         root.setCenter(view);
         backButton.setVisible(true);
     }

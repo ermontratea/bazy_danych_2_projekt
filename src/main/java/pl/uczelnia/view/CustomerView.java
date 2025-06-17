@@ -1,4 +1,4 @@
-package pl.uczelnia.model.view;
+package pl.uczelnia.view;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;

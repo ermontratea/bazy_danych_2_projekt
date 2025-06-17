@@ -1,5 +1,4 @@
-package pl.uczelnia.model.view;
-
+package pl.uczelnia.view;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -11,13 +10,15 @@ public class ReservationsView extends VBox {
     public ReservationsView() {
         setSpacing(10);
         setPadding(new Insets(20));
-
         Label title = new Label("Lista rezerwacji:");
         getChildren().addAll(title, reservationsList);
     }
 
-    public void setReservations(String... reservations) {
+    public ListView<String> getReservationsList() {
+        return reservationsList;
+    }
+
+    public void setReservationsList(String... reservations) {
         reservationsList.getItems().setAll(reservations);
     }
 }
-

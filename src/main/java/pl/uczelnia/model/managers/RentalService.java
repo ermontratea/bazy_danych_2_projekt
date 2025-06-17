@@ -24,7 +24,7 @@ public class RentalService {
     }
 
     public void addRental(Rental rental, ReservationService reservationService) {
-        em.getTransaction().begin();
+
 
         Game game = rental.getGame();
         Customer customer = rental.getCustomer();
@@ -55,10 +55,10 @@ public class RentalService {
         }
 
         em.persist(rental);
-        em.getTransaction().commit();
+
     }
     public void returnGame(Long rentalId) {
-        em.getTransaction().begin();
+
         Rental rental = em.find(Rental.class, rentalId);
         if (rental != null && rental.getActualReturnDate() == null) {
             rental.setActualReturnDate(LocalDate.now());
@@ -83,7 +83,7 @@ public class RentalService {
                 em.persist(game);
             }
         }
-        em.getTransaction().commit();
+
     }
 
 
@@ -92,47 +92,47 @@ public class RentalService {
     }
 
     public void updateRentalDate(Long rentalId, LocalDate newDate) {
-        em.getTransaction().begin();
+
         Rental rental = em.find(Rental.class, rentalId);
         if (rental != null) {
             rental.setRentalDate(newDate);
         }
-        em.getTransaction().commit();
+
     }
 
     public void updateExpectedReturnDate(Long rentalId, LocalDate newDate) {
-        em.getTransaction().begin();
+
         Rental rental = em.find(Rental.class, rentalId);
         if (rental != null) {
             rental.setExpectedReturnDate(newDate);
         }
-        em.getTransaction().commit();
+
     }
 
     public void updateActualReturnDate(Long rentalId, LocalDate newDate) {
-        em.getTransaction().begin();
+
         Rental rental = em.find(Rental.class, rentalId);
         if (rental != null) {
             rental.setActualReturnDate(newDate);
         }
-        em.getTransaction().commit();
+
     }
 
     public void updatePricePaid(Long rentalId, BigDecimal newPrice) {
-        em.getTransaction().begin();
+
         Rental rental = em.find(Rental.class, rentalId);
         if (rental != null) {
             rental.setPricePaid(newPrice);
         }
-        em.getTransaction().commit();
+
     }
 
     public void deleteRental(Long id) {
-        em.getTransaction().begin();
+
         Rental rental = em.find(Rental.class, id);
         if (rental != null) {
             em.remove(rental);
         }
-        em.getTransaction().commit();
+
     }
 }

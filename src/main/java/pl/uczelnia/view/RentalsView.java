@@ -1,5 +1,4 @@
-package pl.uczelnia.model.view;
-
+package pl.uczelnia.view;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -43,5 +42,8 @@ public class RentalsView extends VBox {
         customerIdField.clear();
         gameIdField.clear();
     }
-}
 
+    public ListView<String> getRentalsList() {
+        return rentalsList;
+    }
+}
