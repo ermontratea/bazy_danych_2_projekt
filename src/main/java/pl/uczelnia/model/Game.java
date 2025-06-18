@@ -2,14 +2,17 @@ package pl.uczelnia.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+
 public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(unique = true)
     private String title;
     private String author;
     private String publisher;
@@ -29,6 +32,7 @@ public class Game {
     private int totalCopies;
 
     private BigDecimal basePrice;
+
     // === Konstruktor bezargumentowy (wymagany przez Hibernate) ===
     public Game() {
     }
@@ -36,7 +40,7 @@ public class Game {
     // === Konstruktor ze wszystkimi polami (poza ID, które generuje się automatycznie) ===
     public Game(String title, String author, String publisher, int minPlayers, int maxPlayers,
                 int minDurationMinutes, int maxDurationMinutes, int ageRating, String difficultyLevel,
-                String gameType, int availableCopies, BigDecimal basePrice) {
+                String gameType, int totalCopies, BigDecimal basePrice) {
         this.title = title;
         this.author = author;
         this.publisher = publisher;
@@ -47,9 +51,9 @@ public class Game {
         this.ageRating = ageRating;
         this.difficultyLevel = difficultyLevel;
         this.gameType = gameType;
-        this.availableCopies = availableCopies;
+        this.availableCopies = totalCopies;
         this.basePrice = basePrice;
-        this.totalCopies = availableCopies;
+        this.totalCopies = totalCopies;
     }
     
 
@@ -137,4 +141,5 @@ public class Game {
     public void setTotalCopies(int totalCopies) {
         this.totalCopies = totalCopies;
     }
+
 }

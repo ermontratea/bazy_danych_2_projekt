@@ -32,12 +32,12 @@ public class Rental {
 
     // === Konstruktor ze wszystkimi polami (oprócz ID) ===
     public Rental(Game game, Customer customer, LocalDate rentalDate,
-                  LocalDate expectedReturnDate, LocalDate actualReturnDate, BigDecimal pricePaid) {
+                  LocalDate expectedReturnDate, BigDecimal pricePaid) {
         this.game = game;
         this.customer = customer;
         this.rentalDate = rentalDate;
         this.expectedReturnDate = expectedReturnDate;
-        this.actualReturnDate = actualReturnDate;
+        this.actualReturnDate = null;
         this.pricePaid = pricePaid;
     }
 

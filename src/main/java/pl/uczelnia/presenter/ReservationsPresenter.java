@@ -14,17 +14,15 @@ public class ReservationsPresenter {
         this.view = view;
         this.service = service;
         loadReservations();
+
+        view.getCleanupButton().setOnAction(e -> {
+            service.cleanupExpiredReservationsForAllGames();
+            loadReservations();
+        });
     }
 
     private void loadReservations() {
         List<Reservation> reservations = service.findAllReservations();
-        view.getReservationsList().getItems().clear();
-
-        for (Reservation r : reservations) {
-            String info = "Rezerwacja ID: " + r.getId() + " | Klient: " + r.getCustomer().getFirstName()
-                    + " | Gra: " + r.getGame().getTitle()
-                    + " | Od: " + r.getAvailableFrom();
-            view.getReservationsList().getItems().add(info);
-        }
+        view.setReservations(reservations);
     }
 }

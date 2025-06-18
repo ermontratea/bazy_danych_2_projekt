@@ -2,7 +2,10 @@ package pl.uczelnia.model;
 import javax.persistence.*;
 
 import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Customer {
@@ -15,6 +18,7 @@ public class Customer {
     private String lastName;
     private String email;
     private LocalDate birthday;
+
     // === Konstruktor bezargumentowy (dla Hibernate) ===
     public Customer() {
     }
@@ -61,5 +65,13 @@ public class Customer {
 
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
+    }
+
+
+    public int getAge() {
+        if (birthday == null) {
+            return 0; // lub inna wartość domyślna / rzucenie wyjątku, jeśli brak daty
+        }
+        return Period.between(birthday, LocalDate.now()).getYears();
     }
 }

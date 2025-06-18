@@ -10,14 +10,8 @@ import pl.uczelnia.model.managers.CustomerService;
 import pl.uczelnia.model.managers.GameService;
 import pl.uczelnia.model.managers.RentalService;
 import pl.uczelnia.model.managers.ReservationService;
-import pl.uczelnia.presenter.CustomerPresenter;
-import pl.uczelnia.presenter.GamesPresenter;
-import pl.uczelnia.presenter.RentalsPresenter;
-import pl.uczelnia.presenter.ReservationsPresenter;
-import pl.uczelnia.view.CustomerView;
-import pl.uczelnia.view.GamesView;
-import pl.uczelnia.view.RentalsView;
-import pl.uczelnia.view.ReservationsView;
+import pl.uczelnia.presenter.*;
+import pl.uczelnia.view.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -32,6 +26,7 @@ public class MainApp extends Application {
     private VBox customersPane;
     private VBox gamesPane;
     private VBox reservationsPane;
+    private VBox rankingsPane;
     private EntityManager em;
     private CustomerService customerService;
     private GameService gameService;
@@ -45,10 +40,11 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hibernate-oracle");
         EntityManager em = emf.createEntityManager();
-        customerService = new CustomerService(em);
-        gameService = new GameService(em);
         reservationService = new ReservationService(em);
         rentalsService = new RentalService(em);
+        customerService = new CustomerService(em, rentalsService, reservationService);
+        gameService = new GameService(em, reservationService);
+
 
 
 
@@ -81,13 +77,15 @@ public class MainApp extends Application {
         Button customersBtn = new Button("Klienci");
         Button gamesBtn = new Button("Gry");
         Button reservationsBtn = new Button("Rezerwacje");
+        Button rankingsBtn = new Button("Rankingi");
 
         rentalsBtn.setOnAction(e -> showRentalsPane());
         customersBtn.setOnAction(e -> showCustomersPane());
         gamesBtn.setOnAction(e -> showGamesPane());
         reservationsBtn.setOnAction(e -> showReservationsPane());
+        rankingsBtn.setOnAction(e -> showRankingsPane());
 
-        mainMenuPane.getChildren().addAll(rentalsBtn, customersBtn, gamesBtn, reservationsBtn);
+        mainMenuPane.getChildren().addAll(rentalsBtn, customersBtn, gamesBtn, reservationsBtn, rankingsBtn);
     }
 
 
@@ -120,6 +118,12 @@ public class MainApp extends Application {
     private void showReservationsPane() {
         ReservationsView view = new ReservationsView();
         new ReservationsPresenter(view, reservationService);
+        root.setCenter(view);
+        backButton.setVisible(true);
+    }
+    private void showRankingsPane() {
+        RankingsView view = new RankingsView();
+        new RankingsPresenter(view, rentalsService);
         root.setCenter(view);
         backButton.setVisible(true);
     }
