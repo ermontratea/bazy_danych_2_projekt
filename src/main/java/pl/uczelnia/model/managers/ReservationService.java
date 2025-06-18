@@ -53,17 +53,17 @@ public class ReservationService {
 
         // 4. Sprawdzenie czy są dostępne egzemplarze (availableCopies > 0)
         // dostępne kopie to total - rented - assigned reservations
-        Long rentedCount = em.createQuery(
-                        "SELECT COUNT(r) FROM Rental r WHERE r.game = :game AND r.actualReturnDate IS NULL",
-                        Long.class)
-                .setParameter("game", game)
-                .getSingleResult();
-
-        Long assignedReservationsCount = em.createQuery(
-                        "SELECT COUNT(r) FROM Reservation r WHERE r.game = :game AND r.assigned = true",
-                        Long.class)
-                .setParameter("game", game)
-                .getSingleResult();
+//        Long rentedCount = em.createQuery(
+//                        "SELECT COUNT(r) FROM Rental r WHERE r.game = :game AND r.actualReturnDate IS NULL",
+//                        Long.class)
+//                .setParameter("game", game)
+//                .getSingleResult();
+//
+//        Long assignedReservationsCount = em.createQuery(
+//                        "SELECT COUNT(r) FROM Reservation r WHERE r.game = :game AND r.assigned = true",
+//                        Long.class)
+//                .setParameter("game", game)
+//                .getSingleResult();
 
 //        int available = game.getTotalCopies() - rentedCount.intValue() - assignedReservationsCount.intValue();
         int available= game.getAvailableCopies();
