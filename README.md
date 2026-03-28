@@ -1,3 +1,55 @@
+# BoardGame Rental System 
+
+A desktop application for managing a board game rental business. The system handles customers, game inventory, rentals, and a reservation system with automated copy assignment.
+
+## Key Features
+* **Rental Management:** Full lifecycle of a rental (borrowing, returning, automatic price calculation).
+* **Smart Reservations:** Automatic assignment of available copies to the next person in line when a game is returned.
+* **Validation Logic:** Age restrictions (18+ games), reservation limits (max 5 per customer), and date consistency checks.
+* **Rankings:** Top 5 most rented games and most active customers.
+* **Concurrency Control:** Implementation of **Pessimistic Locking** to handle simultaneous database access.
+
+## Technologies
+* **Java 21**
+* **JavaFX** (UI Stack)
+* **Hibernate / JPA** (ORM)
+* **H2 Database** (Embedded SQL)
+* **Maven** (Dependency Management)
+
+## 📸 Preview
+![Main Menu]()
+
+## Setup & Installation
+
+### Prerequisites
+* JDK 17 or higher
+* Maven
+
+### Running the application
+1. Clone the repository:
+   ```bash
+   git clone [https://github.com/YourUsername/YourRepoName.git](https://github.com/YourUsername/YourRepoName.git)
+
+### Running the application
+1. Clone the repository:
+   ```bash
+   git clone [https://github.com/YourUsername/YourRepoName.git](https://github.com/YourUsername/YourRepoName.git)
+2.Navigate to the project folder:
+    ```bash
+    cd YourRepoName
+
+3. Build and run using Maven:
+    ```bash
+    mvn clean javafx:run
+Note: The application automatically initializes an H2 database file (mojabaza.mv.db) and seeds it with sample data on the first launch.
+
+## Project Structure
+- pl.uczelnia.model.managers - Business logic (Services).
+- pl.uczelnia.presenter - MVP (Model-View-Presenter) Pattern implementation.
+- pl.uczelnia.view - JavaFX UI components.
+- pl.uczelnia.model - JPA Entities (Game, Customer, Rental, Reservation).
+
+
 # Raport projektu - Internetowa Wypożyczalnia Gier Planszowych
 
 ## Autorzy
