@@ -22,6 +22,10 @@ A desktop application for managing a board game rental business. The system hand
 
 ![Main Panel](pictures/mainpage.png)
 
+**Rentals Panel**
+
+![Rentals Panel](pictures/rentalspanel.png)
+
 **Customers Panel**
 
 ![Customers Panel](pictures/customerspanel.png)
@@ -30,9 +34,6 @@ A desktop application for managing a board game rental business. The system hand
 
 ![Games Panel](pictures/gamespanel.png)
 
-**Rentals Panel**
-
-![Rentals Panel](pictures/rentalspanel.png)
 
 **Reservations Panel**
 
