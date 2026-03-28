@@ -266,38 +266,27 @@ public class RentalService {
         }
     }
 
-    public boolean createRental(long customerId, long gameId, boolean isMonth) {
+    public boolean createRental(long customerId, long gameId, boolean isMonth, ReservationService reservationService) {
         try {
             Customer customer = em.find(Customer.class, customerId);
             Game game = em.find(Game.class, gameId);
 
-            if (customer == null || game == null) {
-                return false; // klient lub gra nie istnieje
-            }
+            if (customer == null || game == null) return false;
 
             BigDecimal basePrice = game.getBasePrice();
-            if (basePrice == null) {
-                return false; // nie ustawiono ceny bazowej
-            }
+            if (basePrice == null) return false;
 
             BigDecimal price = isMonth ? basePrice.multiply(BigDecimal.valueOf(2)) : basePrice;
 
             LocalDate rentalDate = LocalDate.now();
             LocalDate expectedReturnDate = isMonth ? rentalDate.plusDays(30) : rentalDate.plusDays(7);
 
-            Rental rental = new Rental();
-            rental.setCustomer(customer);
-            rental.setGame(game);
-            rental.setRentalDate(rentalDate);
-            rental.setExpectedReturnDate(expectedReturnDate);
-            rental.setActualReturnDate(null);
-            rental.setPricePaid(price);
+            Rental rental = new Rental(game, customer, rentalDate, expectedReturnDate, price);
 
-            em.getTransaction().begin();
-            em.persist(rental);
-            em.getTransaction().commit();
+            addRental(rental, reservationService); // <-- użycie pełnej logiki walidacji
 
             return true;
+
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
@@ -306,5 +295,6 @@ public class RentalService {
             return false;
         }
     }
+
 
 }

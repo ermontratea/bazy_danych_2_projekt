@@ -23,20 +23,21 @@ public class Main {
 
         try {
             em.getTransaction().begin();
-            rentalService.returnGame(7L);
+//            ////////
+//            Game game = gameService.findGame(3L);
+//            rentalService.createRental(8L,3L, false, reservationService);
+//            rentalService.createRental(9L,3L, true, reservationService);
+//            rentalService.createRental(10L,3L, false, reservationService);
+//
+//            rentalService.createRental(1L, 2L, false, reservationService);
 
 
-
-
-
-
-
-        em.getTransaction().commit();
+            em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
-            em.getTransaction().rollback(); // 💣 COFNIJ transakcję
+            em.getTransaction().rollback();
             }
-            e.printStackTrace(); // lub logger
+            e.printStackTrace();
         } finally {
              em.close();
              emf.close();

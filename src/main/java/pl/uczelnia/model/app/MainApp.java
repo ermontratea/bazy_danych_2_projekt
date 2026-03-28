@@ -6,13 +6,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import pl.uczelnia.model.Game;
+import pl.uczelnia.model.Customer;
 import pl.uczelnia.model.managers.CustomerService;
 import pl.uczelnia.model.managers.GameService;
 import pl.uczelnia.model.managers.RentalService;
 import pl.uczelnia.model.managers.ReservationService;
 import pl.uczelnia.presenter.*;
 import pl.uczelnia.view.*;
-
+import java.time.LocalDate;
+import java.math.BigDecimal;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -39,14 +42,22 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hibernate-oracle");
-        EntityManager em = emf.createEntityManager();
+        this.em = emf.createEntityManager();
         reservationService = new ReservationService(em);
         rentalsService = new RentalService(em);
         customerService = new CustomerService(em, rentalsService, reservationService);
         gameService = new GameService(em, reservationService);
 
-
-
+        try {
+            em.getTransaction().begin();
+            seedData(em, customerService, gameService, rentalsService, reservationService);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
 
         root = new BorderPane();
 
@@ -103,7 +114,7 @@ public class MainApp extends Application {
 
     private void showRentalsPane() {
         RentalsView view = new RentalsView();
-        new RentalsPresenter(view, rentalsService); // tutaj można podać też service'y
+        new RentalsPresenter(view, rentalsService);
         root.setCenter(view);
         backButton.setVisible(true);
     }
@@ -130,5 +141,58 @@ public class MainApp extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+    public static void seedData(EntityManager em, CustomerService customerService,
+                                GameService gameService, RentalService rentalService,
+                                ReservationService reservationService) {
+
+        if (!customerService.findAllCustomers().isEmpty()) {
+            System.out.println("W bazie już są dane, pomijam inicjalizację.");
+            return;
+        }
+
+        Customer c1 = new Customer("Jan", "Kowalski", "jan.kowalski@email.com", LocalDate.of(1990, 5, 15));
+        Customer c2 = new Customer("Anna", "Zaradna", "ania.z@poczta.pl", LocalDate.of(2005, 10, 20));
+        Customer c3 = new Customer("Marek", "Nocny", "marek88@gmail.com", LocalDate.of(2011, 2, 10)); //
+
+        customerService.addCustomer(c1);
+        customerService.addCustomer(c2);
+        customerService.addCustomer(c3);
+
+        Game g1 = new Game("Cyberpunk 2077: Gra Karciana", "Mike Pondsmith", "R. Talsorian", 1, 4, 30, 60, 18, "Trudna", "Karciana", 5, new BigDecimal("10.00"));
+        Game g2 = new Game("Wsiąść do Pociągu: Europa", "Alan R. Moon", "Days of Wonder", 2, 5, 30, 90, 8, "Łatwa", "Planszowa", 2, new BigDecimal("15.00"));
+        Game g3 = new Game("Szachy Deluxe", "Nieznany", "Classic Games", 2, 2, 10, 120, 3, "Średnia", "Strategiczna", 1, new BigDecimal("15.00"));
+
+        gameService.addGame(g1);
+        gameService.addGame(g2);
+        gameService.addGame(g3);
+
+        em.flush();
+
+        rentalService.createRental(c1.getId(), g1.getId(), false, reservationService);
+        rentalService.createRental(c2.getId(), g2.getId(), true, reservationService);
+
+        rentalService.createRental(c1.getId(), g3.getId(), false, reservationService);
+
+        reservationService.addReservation(c3.getId(), g3.getId());
+
+        System.out.println("Dane testowe wygenerowane pomyślnie!");
+    }
+    public void clearDatabase() {
+        try {
+            em.getTransaction().begin();
+
+            em.createQuery("DELETE FROM Reservation").executeUpdate();
+            em.createQuery("DELETE FROM Rental").executeUpdate();
+
+            em.createQuery("DELETE FROM Game").executeUpdate();
+            em.createQuery("DELETE FROM Customer").executeUpdate();
+
+            em.getTransaction().commit();
+            System.out.println("Baza została wyczyszczona.");
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) em.getTransaction().rollback();
+            e.printStackTrace();
+        }
     }
 }

@@ -9,14 +9,25 @@
         <class>pl.uczelnia.model.Customer</class>
         <class>pl.uczelnia.model.Rental</class>
 
-        <properties>
-            <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@dbmanage.lab.ii.agh.edu.pl:1521:DBMANAGE"/>
-            <property name="javax.persistence.jdbc.user" value="BD_423125"/>
-            <property name="javax.persistence.jdbc.password" value="st5873"/>
+<!--        <properties>-->
+<!--            <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>-->
+<!--            <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@dbmanage.lab.ii.agh.edu.pl:1521:DBMANAGE"/>-->
+<!--            <property name="javax.persistence.jdbc.user" value="BD_423125"/>-->
+<!--            <property name="javax.persistence.jdbc.password" value="st5873"/>-->
 
-            <!-- Hibernate config -->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/>
+<!--            &lt;!&ndash; Hibernate config &ndash;&gt;-->
+<!--            <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/>-->
+<!--            <property name="hibernate.hbm2ddl.auto" value="update"/>-->
+<!--            <property name="hibernate.show_sql" value="true"/>-->
+<!--            <property name="hibernate.format_sql" value="true"/>-->
+<!--        </properties>-->
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:./mojabaza;DB_CLOSE_DELAY=-1"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
