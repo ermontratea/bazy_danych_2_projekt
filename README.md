@@ -28,19 +28,17 @@ A desktop application for managing a board game rental business. The system hand
 ### Running the application
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/YourUsername/YourRepoName.git](https://github.com/YourUsername/YourRepoName.git)
+   git clone https://github.com/ermontratea/bazy_danych_2_projekt
 
 ### Running the application
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/YourUsername/YourRepoName.git](https://github.com/YourUsername/YourRepoName.git)
-2.Navigate to the project folder:
-    ```bash
-    cd YourRepoName
-
-3. Build and run using Maven:
-    ```bash
-    mvn clean javafx:run
+   git clone https://github.com/ermontratea/bazy_danych_2_projekt
+2. **Open in IntelliJ:** File -> Open -> Select the project folder.
+3. **Configure SDK:** Ensure your Project SDK is set to **Java 17 or 21** (File -> Project Structure).
+4. **Run the Application:**
+   * Find `src/main/java/pl/uczelnia/model/app/LauchApp.java`.
+   * Right-click the `LaunchApp` class and select **Run 'LaunchApp.main()'**.
 Note: The application automatically initializes an H2 database file (mojabaza.mv.db) and seeds it with sample data on the first launch.
 
 ## Project Structure
