@@ -17,7 +17,30 @@ A desktop application for managing a board game rental business. The system hand
 * **Maven** (Dependency Management)
 
 ## 📸 Preview
-![Main Menu]()
+
+**Main Panel**
+
+![Main Panel](pictures/mainpage.png)
+
+**Customers Panel**
+
+![Customers Panel](pictures/customerspanel.png)
+
+**Games Panel**
+
+![Games Panel](pictures/gamespanel.png)
+
+**Rentals Panel**
+
+![Rentals Panel](pictures/rentalspanel.png)
+
+**Reservations Panel**
+
+![Reservations Panel](pictures/reservationspanel.png)
+
+**Rankings Panel**
+
+![Rankings Panel](pictures/rankingspanel.png)
 
 ## Setup & Installation
 
